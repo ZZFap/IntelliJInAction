@@ -1,7 +1,5 @@
 package com.acme.currency.converter.service;
 
-import java.util.Objects;
-
 public class FixedRateCurrencyExchangeService implements ICurrencyExchangeService {
     private double rate;
 
@@ -13,10 +11,17 @@ public class FixedRateCurrencyExchangeService implements ICurrencyExchangeServic
     @Override
     public double requestCurrentRate(String fromCurrency, String toCurrency) {
         double answer = 0;
-        if (Objects.equals(fromCurrency, "USD"))
-            if (Objects.equals(toCurrency, "CDN")) answer=rate;
-        if (Objects.equals(fromCurrency, "CDN"))
-            if (Objects.equals(toCurrency, "USD")) answer=1.0/rate;
+        switch (fromCurrency) {
+            case "USD":
+                switch (toCurrency) {   case "CDN":                 answer = rate;                  break;      }
+                break;
+            case "CDN":
+                switch (toCurrency) {   case "USD":                 answer = 1.0 / rate;            break;      }
+                break;
+            case "XXX":
+                switch (toCurrency) {   case "USD":                 answer = 1.0 / rate;            break;      }
+                break;
+        }
         return answer;
     }
 
