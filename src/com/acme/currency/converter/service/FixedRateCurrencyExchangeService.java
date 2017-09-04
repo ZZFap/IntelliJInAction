@@ -11,15 +11,12 @@ public class FixedRateCurrencyExchangeService implements ICurrencyExchangeServic
     @Override
     public double requestCurrentRate(String fromCurrency, String toCurrency) {
         double answer = 0;
-        switch (fromCurrency) {
-            case "USD":
-                switch (toCurrency) {   case "CDN":                 answer = rate;                  break;      }
+        switch (CurrencyEnum.valueOf(fromCurrency)) {
+            case USD:
+                switch (CurrencyEnum.valueOf(toCurrency)) {   case CDN:     answer = rate;              break;      }
                 break;
-            case "CDN":
-                switch (toCurrency) {   case "USD":                 answer = 1.0 / rate;            break;      }
-                break;
-            case "XXX":
-                switch (toCurrency) {   case "USD":                 answer = 1.0 / rate;            break;      }
+            case CDN:
+                switch (CurrencyEnum.valueOf(toCurrency)) {   case USD:     answer = 1.0 / rate;        break;      }
                 break;
         }
         return answer;
